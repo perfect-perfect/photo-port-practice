@@ -34,6 +34,8 @@ describe('About component', () => {
         // we'll test and compare whether the expected and actual outcomes match.
         //  - use the 'expect' function with a matcher to assert something about a value
         //  - we'll use the 'toMatchSnapshot' matcher to assert that snapshots will match
+        // sample
+        // sample
         expect(asFragment()).toMatchSnapshot();
     })
 })
