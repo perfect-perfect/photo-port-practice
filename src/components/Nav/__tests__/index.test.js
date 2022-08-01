@@ -28,6 +28,7 @@ describe('emoji is visible', () => {
         // Assert
         // we use the 'getByLabelText' method and query by the 'aria-label' value
         // we have used a custom matcher to compare the expected value to the one recieved by our query
+        // these matchers come from '@testing-library/jest-dom'
         expect(getByLabelText('camera')).toHaveTextContent('📸');  
     })
 })
