@@ -8,10 +8,12 @@ function Nav(props) {
         categories = [],
         setCurrentCategory,
         currentCategory,
+        contactSelected,
+        setContactSelected
     } = props;
 
     // useEffect(() => {},[])
-    //  - the argument is the callback function
+    //  - the first argument is the callback function
     //  - the second argument is an array with a single element [currentCategory]
     //      - the second argument directs the hook to re-render the component on changes to the value of the state
     //  - if 'currentCategory' changes, the component will re-render so that the change in 'document.title' will be visable to the user
@@ -35,12 +37,16 @@ function Nav(props) {
             <nav>
                 <ul className="flex-row">
                     <li className="mx-2">
-                        <a data-testid="about" href="#about">
+                        {/* if contactSelected is set to false by the 'setContactSelected' then the Gallery and About render */}
+                        <a data-testid="about" href="#about" onClick={() => setContactSelected(false)}>
                             About me
                         </a>
                     </li>
-                    <li>
-                        <span>Contact</span>
+                    {/* if contact is selected we add the CSS class 'nanActive' which will highlight contact */}
+                    {/* note the addition of '{}' to contain the JavaScript expresson, as well as the template literal to interpolate the JavaScript statement */}
+                    <li className={`mx-2 ${contactSelected && 'nanActive'}`}>
+                        {/* if contactSelected is set to 'true' by the 'setContactSelected' state setter, then the Contact will render. due to the ternary operator in APP */}
+                        <span onClick={() => setContactSelected(true)}>Contact</span>
                     </li>
                     {/* When you map over an array in a JSX express, you should return only a single JSX element */}
                     {categories.map((category) =>(
@@ -48,10 +54,17 @@ function Nav(props) {
                         // '${currentCategory.name === category.name && 'nanActive'}
                         //      - this is called a short-circuit expression
                         //      - if 'currentCategory.name === category.name' is true, then 'nanActive' will be returned
-                        <li className={`mx-1 ${currentCategory.name === category.name && 'navActive'}`} key={category.name}>
+                        // will assign the nanActive CSS class if the current category state is set to the that category AND contactSelected is set to false
+                        <li className={`mx-1 ${currentCategory.name === category.name && !contactSelected && 'navActive'}`} key={category.name}>
                             {/* the 'onClick()' attribute is expecting a callback function declaration. */}
                             {/* it is important that we wrap it in a function declartion rather than calling 'categorySelected(category.name), which would cause the function get called whenever the component renders as well */}
-                            <span onClick={() => setCurrentCategory(category)}>
+                            <span onClick={() => {
+                                // set the state of the currentCategory
+                                setCurrentCategory(category);
+                                // set the state of contactSelected to false so the contact is not rendered
+                                setContactSelected(false);
+                            }}
+                            >
                                 {capitalizeFirstLetter(category.name)}
                             </span>
                         </li>
