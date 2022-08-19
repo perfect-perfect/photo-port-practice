@@ -98,6 +98,7 @@ function Contact() {
                     <textarea name="message" rows="5" onBlur={handleChange} defaultValue={message} />
                 </div>
                 {/* if there is an errorMessage it will conditionally render the error message to the user */}
+                {/* if errorMessage is an empty string it is an empty variable whose boolean value is false */}
                 {/* the && operator is being used here as a short circuit. If the first value resolves to 'true', the second expression is evaluted */}
                 {errorMessage && (
                     <div>
